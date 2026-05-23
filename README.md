@@ -1,82 +1,90 @@
-# LORINIMS - Lorenzana Food Corporation Integrated Management System
+# Lorenzana Food Corporation Integrated Management System (LORINIMS)
 
-## Project Structure
+An Integrated Management System developed for Lorenzana Food Corporation as a Bachelor of Science in Computer Science capstone thesis project at Tanauan Institute.
 
-```
-lorinims/
-├── assets/              # Static assets
-│   ├── css/           # Stylesheets
-│   │   └── style.css  # Main stylesheet (modern, responsive)
-│   └── js/            # JavaScript files
-│       └── sidebar.js # Sidebar functionality
-│
-├── layouts/            # Reusable layout components
-│   ├── header.php     # Page header with navigation
-│   ├── sidebar.php    # Sidebar navigation menu
-│   └── footer.php     # Page footer
-│
-├── config/             # Configuration files (if needed)
-│
-├── login.php           # Login page
-├── login_process.php   # Login authentication handler
-├── logout.php          # Logout handler
-│
-├── admin_dashboard.php      # Admin dashboard
-├── production_dashboard.php # Production staff dashboard
-├── warehouse_dashboard.php  # Warehouse staff dashboard
-├── quality_dashboard.php    # Quality Control dashboard
-├── sales_dashboard.php       # Sales staff dashboard
-│
-├── production.php      # Production module
-├── inventory.php       # Inventory management
-├── procurement.php    # Procurement module
-├── qc.php             # Quality Control module
-├── sales.php          # Sales & Distribution module
-├── accounting.php     # Accounting module
-├── users.php          # User management (admin only)
-├── driver_gps.php     # GPS tracking for delivery drivers
-│
-└── db_connect.php     # Database connection configuration
-```
+## Overview
 
-## User Roles & Access
+LORINIMS is a locally hosted web-based management system designed to streamline and automate core business operations of a food manufacturing company.
 
-The system supports the following user roles:
+The system integrates multiple departments into one centralized platform to improve workflow efficiency, data consistency, inventory monitoring, reporting, and operational tracking.
 
-- **admin** - Full system access
-- **production** - Production dashboard and records
-- **warehouse** - Warehouse dashboard and inventory
-- **qc** - Quality Control dashboard and inspections
-- **accounting** - Accounting module access
-- **sales** - Sales dashboard and order management
-- **delivery** - GPS tracking for delivery drivers
+---
 
 ## Features
 
-- ✅ Modern, responsive design
-- ✅ Role-based access control
-- ✅ Mobile-friendly interface
-- ✅ Sidebar navigation with collapse/expand
-- ✅ Secure session management
-- ✅ Dashboard views for each role
+- Production Management
+- Inventory Monitoring
+- Procurement & Supplier Management
+- Quality Control Tracking
+- Sales & Distribution Management
+- Accounting & Expense Monitoring
+- Payroll & Employee Management
+- GPS-Based Delivery Tracking
+- Analytics Dashboard
+- Role-Based Access Control
 
-## Getting Started
+---
 
-1. Ensure XAMPP is running
-2. Import the database schema to `lorinims_db`
-3. Access the application at `http://localhost/lorinims/login.php`
-4. Login with your credentials
+## Technologies Used
 
-## Technology Stack
+### Backend
+- PHP
+- MySQL
 
-- PHP (Server-side)
-- MySQL (Database)
-- HTML5/CSS3 (Frontend)
-- JavaScript (Interactivity)
+### Frontend
+- HTML
+- CSS
+- JavaScript
+- AJAX
+- Bootstrap
+- jQuery
 
-## Notes
+### Tools & Platforms
+- XAMPP
+- Git & GitHub
+- VS Code
 
-- All pages require authentication
-- Role-based redirects after login
-- Mobile-responsive design (breakpoints at 768px and 480px)
-- Modern CSS with variables for easy theming
+---
+
+## System Modules
+
+### Production Module
+Tracks production requests, batch processing, and material usage.
+
+### Inventory Module
+Monitors stock levels, warehouse records, and inventory synchronization.
+
+### Procurement Module
+Handles supplier records, purchase orders, and goods receiving reports.
+
+### Sales & Distribution Module
+Manages customer orders, invoices, and delivery scheduling.
+
+### GPS Delivery Tracking
+Provides real-time delivery monitoring and proof-of-delivery tracking.
+
+### Accounting Module
+Handles expenses, payments, invoices, and financial reporting.
+
+---
+
+## Researchers
+
+- Francis C. Maglalang
+- Lei Anne Kylle T. Gelotin
+
+---
+
+## Academic Information
+
+Bachelor of Science in Computer Science  
+Tanauan Institute  
+2026
+
+---
+
+## Disclaimer
+
+This system was developed for academic purposes as a capstone thesis project.
+
+Some company-related data, screenshots, and records are used only for demonstration and educational purposes.
