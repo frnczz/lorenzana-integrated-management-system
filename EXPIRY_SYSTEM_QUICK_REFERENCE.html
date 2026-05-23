@@ -1,0 +1,707 @@
+<!-- 
+Quick Reference: Expiry System v2 Administration
+This file provides quick instructions for managing product shelf life settings
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expiry System v2 - Quick Reference Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .section h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .code-block.sql {
+            border-left: 4px solid #f92672;
+        }
+        
+        .code-block.html {
+            border-left: 4px solid #66d9ef;
+        }
+        
+        .code-block.js {
+            border-left: 4px solid #a1efe4;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        table thead {
+            background: #667eea;
+            color: white;
+        }
+        
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .error-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .info-box {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⏳ Expiry System v2</h1>
+            <p>Quick Reference Guide for Administrators</p>
+        </header>
+        
+        <div class="content">
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>📋 Overview</h2>
+                <p>The redesigned Expiry Date System provides:</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon">🎯</div>
+                        <h3>Product-Specific</h3>
+                        <p>Configure shelf life per product</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📅</div>
+                        <h3>Flexible Units</h3>
+                        <p>Days, months, or years</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">✅</div>
+                        <h3>Auto-Calculated</h3>
+                        <p>Expiry computed on batch creation</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🔙</div>
+                        <h3>Compatible</h3>
+                        <p>Backward compatible with legacy system</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>🔧 Setup & Installation</h2>
+                
+                <h3>Step 1: Execute Migration</h3>
+                <p>Run the SQL migration to set up the database:</p>
+                <div class="code-block sql">migrations/002_fix_expiry_system_with_product_settings.sql</div>
+                
+                <h3>Options:</h3>
+                <ul class="checklist">
+                    <li><strong>phpMyAdmin:</strong> SQL tab →  Copy & Paste → Execute</li>
+                    <li><strong>MySQL CLI:</strong> <code>mysql -u root -p lorinims < migrations/002_fix_expiry_system_with_product_settings.sql</code></li>
+                    <li><strong>PHP Script:</strong> Create a setup.php to run queries programmatically</li>
+                </ul>
+                
+                <h3>Step 2: Verify Installation</h3>
+                <p>Run verification queries:</p>
+                <div class="code-block sql">sql/verify_expiry_system.sql</div>
+                <div class="success-box">
+                    ✓ All queries should return data <br>
+                    ✓ No NULL or '0000-00-00' dates <br>
+                    ✓ production_settings table populated
+                </div>
+            </div>
+            
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>📊 Product Shelf Life Settings</h2>
+                
+                <h3>Default Lorenzana Products</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Shelf Life Value</th>
+                            <th>Unit</th>
+                            <th>Total Time</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fish Sauce (Patis) - All Variants</td>
+                            <td>24</td>
+                            <td>months</td>
+                            <td>2 years</td>
+                            <td>Lorenzana Catalog</td>
+                        </tr>
+                        <tr>
+                            <td>Soy Sauce</td>
+                            <td>36</td>
+                            <td>months</td>
+                            <td>3 years</td>
+                            <td>FDA Verification (Nov 2027)</td>
+                        </tr>
+                        <tr>
+                            <td>Vinegar</td>
+                            <td>36</td>
+                            <td>months</td>
+                            <td>3 years</td>
+                            <td>FDA Verification (Mar 2028)</td>
+                        </tr>
+                        <tr>
+                            <td>Bagoong (Fermented Fish Paste)</td>
+                            <td>24</td>
+                            <td>months</td>
+                            <td>2 years</td>
+                            <td>Industry Standard</td>
+                        </tr>
+                        <tr>
+                            <td>Value Packs & Combos</td>
+                            <td>24</td>
+                            <td>months</td>
+                            <td>2 years</td>
+                            <td>Shortest Component</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>View Current Settings</h3>
+                <div class="code-block sql">
+SELECT 
+    p.product_id,
+    p.product_name,
+    ps.expiry_value,
+    ps.expiry_unit,
+    CONCAT(ps.expiry_value, ' ', ps.expiry_unit) AS shelf_life
+FROM products p
+LEFT JOIN production_settings ps ON p.product_id = ps.product_id
+ORDER BY p.product_name;
+                </div>
+                
+                <h3>Update a Product's Shelf Life</h3>
+                <p><strong>Example:</strong> Change Fish Sauce to 30 months</p>
+                <div class="code-block sql">
+UPDATE production_settings 
+SET expiry_value = 30, expiry_unit = 'months'
+WHERE product_id = (
+    SELECT product_id FROM products WHERE product_name LIKE '%Fish Sauce%' LIMIT 1
+);
+                </div>
+                
+                <h3>Add/Insert New Product Setting</h3>
+                <p>If a new product doesn't have settings:</p>
+                <div class="code-block sql">
+INSERT INTO production_settings (product_id, expiry_value, expiry_unit, description)
+VALUES (5, 12, 'months', 'New Product Description')
+ON DUPLICATE KEY UPDATE 
+    expiry_value = 12, 
+    expiry_unit = 'months',
+    description = 'New Product Description';
+                </div>
+            </div>
+            
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>🚀 Testing Calculations</h2>
+                
+                <h3>Test Case 1: Fish Sauce (24 months)</h3>
+                <table>
+                    <thead>
+                        <tr><th>Metric</th><th>Value</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Product</td><td>Fish Sauce (Patis)</td></tr>
+                        <tr><td>Production Date</td><td>2026-03-01</td></tr>
+                        <tr><td>Shelf Life</td><td>24 months</td></tr>
+                        <tr><td>Expected Expiry</td><td>2028-03-01</td></tr>
+                    </tbody>
+                </table>
+                
+                <h3>Test Case 2: Soy Sauce (36 months)</h3>
+                <table>
+                    <thead>
+                        <tr><th>Metric</th><th>Value</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Product</td><td>Soy Sauce</td></tr>
+                        <tr><td>Production Date</td><td>2026-06-15</td></tr>
+                        <tr><td>Shelf Life</td><td>36 months</td></tr>
+                        <tr><td>Expected Expiry</td><td>2029-06-15</td></tr>
+                    </tbody>
+                </table>
+                
+                <h3>Test Case 3: Leap Year Handling</h3>
+                <div class="info-box">
+                    The system automatically handles leap years and month boundaries. 
+                    For example, adding 1 month to January 31st will correctly navigate to February 28th (or 29th in leap years).
+                </div>
+                
+                <h3>Manual Calculation in MySQL</h3>
+                <div class="code-block sql">
+-- Verify calculation manually
+SELECT 
+    '2026-03-01' AS production_date,
+    24 AS shelf_life_months,
+    DATE_ADD('2026-03-01', INTERVAL 24 MONTH) AS calculated_expiry,
+    '2028-03-01' AS expected,
+    IF(DATE_ADD('2026-03-01', INTERVAL 24 MONTH) = '2028-03-01', 'PASS', 'FAIL') AS result;
+                </div>
+            </div>
+            
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>🔌 API Integration</h2>
+                
+                <h3>API Endpoint</h3>
+                <div class="code-block">
+POST /lorinims/api/calculate_expiry_date_v2.php
+                </div>
+                
+                <h3>Parameters</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Required</th>
+                            <th>Example</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>product_id</td>
+                            <td>integer</td>
+                            <td>✓ Yes</td>
+                            <td>4</td>
+                            <td>Product ID from database</td>
+                        </tr>
+                        <tr>
+                            <td>production_date</td>
+                            <td>string</td>
+                            <td>✗ No</td>
+                            <td>2026-03-01</td>
+                            <td>Format: YYYY-MM-DD, defaults to today</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>JavaScript Example</h3>
+                <div class="code-block js">
+// Call the API
+fetch('/lorinims/api/calculate_expiry_date_v2.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: 'product_id=4&production_date=2026-03-01'
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        console.log('Expiry Date: ' + data.expiry_date);
+        console.log('Shelf Life: ' + data.shelf_life_value + ' ' + data.shelf_life_unit);
+        console.log('Source: ' + data.shelf_life_source);
+    } else {
+        console.error('Error: ' + data.error);
+    }
+});
+                </div>
+                
+                <h3>Response Format (Success)</h3>
+                <div class="code-block">
+{
+  "success": true,
+  "expiry_date": "2028-03-01",
+  "shelf_life_value": 24,
+  "shelf_life_unit": "months",
+  "shelf_life_source": "production_settings",
+  "production_date": "2026-03-01",
+  "error": null
+}
+                </div>
+                
+                <h3>Response Format (Error)</h3>
+                <div class="code-block">
+{
+  "success": false,
+  "expiry_date": null,
+  "shelf_life_value": null,
+  "shelf_life_unit": null,
+  "shelf_life_source": null,
+  "production_date": "2026-03-01",
+  "error": "Product not found or shelf life not configured"
+}
+                </div>
+            </div>
+            
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>⚠️ Troubleshooting</h2>
+                
+                <h3>Problem: "Data truncated for column 'expiry_date'"</h3>
+                <div class="error-box">
+                    <strong>Cause:</strong> Invalid date values (NULL, '0000-00-00') still in database<br>
+                    <strong>Solution:</strong> Run the migration to clean up data<br>
+                    <strong>Check:</strong> Run verify_expiry_system.sql to identify invalid dates
+                </div>
+                
+                <h3>Problem: API returns "Product not found"</h3>
+                <div class="error-box">
+                    <strong>Cause:</strong> Product doesn't exist OR shelf life not configured<br>
+                    <strong>Solution:</strong> Verify product exists, then add entry to production_settings<br>
+                    <strong>Check:</strong> SELECT * FROM products WHERE product_id = ?;
+                </div>
+                
+                <h3>Problem: Expiry date calculation seems wrong</h3>
+                <div class="error-box">
+                    <strong>Cause:</strong> Check if using days vs months incorrectly<br>
+                    <strong>Solution:</strong> Verify shelf_life_unit in production_settings<br>
+                    <strong>Check:</strong> SELECT * FROM production_settings WHERE product_id = ?;
+                </div>
+                
+                <h3>Problem: "Permission denied" on API</h3>
+                <div class="error-box">
+                    <strong>Cause:</strong> User not logged in or insufficient role<br>
+                    <strong>Solution:</strong> Log in, ensure user has 'admin' or 'production' role<br>
+                    <strong>Check:</strong> SELECT role FROM users WHERE user_id = ?;
+                </div>
+                
+                <h3>Problem: Date format error</h3>
+                <div class="error-box">
+                    <strong>Cause:</strong> Production date not in YYYY-MM-DD format<br>
+                    <strong>Solution:</strong> Ensure form uses HTML5 date input (type="date")<br>
+                    <strong>Format:</strong> YYYY-MM-DD (e.g., 2026-03-01)
+                </div>
+            </div>
+            
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>📚 Database Queries Reference</h2>
+                
+                <h3>View All Products with Settings</h3>
+                <div class="code-block sql">
+SELECT 
+    p.product_id,
+    p.product_name,
+    COALESCE(ps.expiry_value, p.shelf_life_days, 365) AS value,
+    COALESCE(ps.expiry_unit, 'days') AS unit,
+    CASE 
+        WHEN ps.product_id IS NOT NULL THEN 'production_settings'
+        WHEN p.shelf_life_days > 0 THEN 'products_legacy'
+        ELSE 'not_configured'
+    END AS source
+FROM products p
+LEFT JOIN production_settings ps ON p.product_id = ps.product_id
+ORDER BY p.product_name;
+                </div>
+                
+                <h3>Find Products Without Shelf Life</h3>
+                <div class="code-block sql">
+SELECT 
+    p.product_id,
+    p.product_name
+FROM products p
+LEFT JOIN production_settings ps ON p.product_id = ps.product_id
+WHERE ps.product_id IS NULL
+ORDER BY p.product_name;
+                </div>
+                
+                <h3>Check Recent Batches with Expiry</h3>
+                <div class="code-block sql">
+SELECT 
+    pb.batch_id,
+    pb.batch_number,
+    p.product_name,
+    pb.batch_date AS production_date,
+    pb.expiry_date,
+    DATEDIFF(pb.expiry_date, pb.batch_date) AS shelf_life_days,
+    ps.expiry_value,
+    ps.expiry_unit
+FROM production_batches pb
+JOIN products p ON pb.product_id = p.product_id
+LEFT JOIN production_settings ps ON p.product_id = ps.product_id
+ORDER BY pb.batch_id DESC
+LIMIT 20;
+                </div>
+                
+                <h3>Calculate Days Until Expiry</h3>
+                <div class="code-block sql">
+SELECT 
+    pb.batch_number,
+    p.product_name,
+    pb.expiry_date,
+    DATEDIFF(CURDATE(), pb.expiry_date) AS days_expired_or_remaining,
+    CASE 
+        WHEN CURDATE() > pb.expiry_date THEN 'EXPIRED'
+        WHEN DATEDIFF(CURDATE(), pb.expiry_date) < 30 THEN 'EXPIRING SOON'
+        ELSE 'OK'
+    END AS status
+FROM production_batches pb
+JOIN products p ON pb.product_id = p.product_id
+WHERE pb.expiry_date IS NOT NULL
+ORDER BY pb.expiry_date ASC;
+                </div>
+            </div>
+            
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>✅ Verification Checklist</h2>
+                <ul class="checklist">
+                    <li>Migration executed without errors</li>
+                    <li>production_settings table created</li>
+                    <li>production_batches.expiry_date is NOT NULL</li>
+                    <li>Default Lorenzana products loaded (5+ products)</li>
+                    <li>No NULL or '0000-00-00' dates in production_batches</li>
+                    <li>API endpoint returns JSON responses</li>
+                    <li>Frontend calculateBatchExpiry() function works</li>
+                    <li>Test production batch creation with expiry</li>
+                    <li>Verify shelf life displays correctly (value + unit)</li>
+                    <li>Check source identification (Custom vs Default)</li>
+                </ul>
+            </div>
+            
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>📁 Files Reference</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>Purpose</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>migrations/002_fix_expiry_system_with_product_settings.sql</td>
+                            <td>Database schema & data migration</td>
+                            <td>SQL</td>
+                            <td>✓ Ready</td>
+                        </tr>
+                        <tr>
+                            <td>includes/expiry_service_v2.php</td>
+                            <td>Service functions for calculations</td>
+                            <td>PHP</td>
+                            <td>✓ Ready</td>
+                        </tr>
+                        <tr>
+                            <td>api/calculate_expiry_date_v2.php</td>
+                            <td>REST API endpoint</td>
+                            <td>PHP</td>
+                            <td>✓ Ready</td>
+                        </tr>
+                        <tr>
+                            <td>production_record.php</td>
+                            <td>Production form (updated for v2)</td>
+                            <td>PHP</td>
+                            <td>✓ Updated</td>
+                        </tr>
+                        <tr>
+                            <td>sql/verify_expiry_system.sql</td>
+                            <td>Verification queries</td>
+                            <td>SQL</td>
+                            <td>✓ Ready</td>
+                        </tr>
+                        <tr>
+                            <td>EXPIRY_SYSTEM_REDESIGN.md</td>
+                            <td>Complete documentation</td>
+                            <td>Markdown</td>
+                            <td>✓ Ready</td>
+                        </tr>
+                        <tr>
+                            <td>EXPIRY_SYSTEM_QUICK_REFERENCE.html</td>
+                            <td>This file (quick reference)</td>
+                            <td>HTML</td>
+                            <td>✓ Ready</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- ============================================================ -->
+            <div class="section">
+                <h2>🎯 Next Steps</h2>
+                <ol style="padding-left: 20px;">
+                    <li><strong>Execute Migration:</strong> Run migrations/002_fix_expiry_system_with_product_settings.sql</li>
+                    <li><strong>Verify Setup:</strong> Run sql/verify_expiry_system.sql to confirm success</li>
+                    <li><strong>Test Frontend:</strong> Navigate to production_record.php and create a test batch</li>
+                    <li><strong>Monitor:</strong> Check production_batches table for correct expiry_date values</li>
+                    <li><strong>Training:</strong> Educate team on new shelf life units (days/months/years)</li>
+                    <li><strong>Maintain:</strong> Use admin UI to update product settings as needed</li>
+                </ol>
+            </div>
+            
+        </div>
+        
+        <footer>
+            <p><strong>Expiry System v2</strong> • Quick Reference Guide</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                For detailed documentation, see <strong>EXPIRY_SYSTEM_REDESIGN.md</strong>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

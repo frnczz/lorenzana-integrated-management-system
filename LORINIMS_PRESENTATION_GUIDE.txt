@@ -1,0 +1,176 @@
+LORINIMS Presentation Guide (For Panelists)
+
+Date: Sunday (3 days from now)
+
+Goal: Walk through the Lorinims system from start to finish with a clear narrative, demonstrating key modules, workflows, and value. Keep it paced, show real data, and be ready to answer questions.
+
+1) PREPARE (Before the presentation)
+- Make sure your local server (XAMPP) is running (Apache + MySQL).
+- Confirm the database is running and seeded with sample data (users, products, orders, etc.).
+- Open the project in your editor and have the browser ready at the login screen (e.g., http://localhost/lorinims/login.php).
+- If possible, create a quick "demo user" account in the `users` table (role=admin) so you don’t need to use production credentials.
+- Note: If you need to reset data, keep a SQL dump handy (there are many `.sql` files in the repo).
+
+2) PRESENTATION FLOW (What to say and do)
+
+A) Brief introduction (1-2 minutes)
+- Start with a short introduction: “LORINIMS is a lightweight integrated management system built for food manufacturing operations. It covers procurement, inventory, production, sales, accounting, and reporting, all in one platform.”
+- Mention the key goals: centralizing operations, improving visibility, reducing manual tracking, and speeding up decision making.
+
+B) Login & Access Control (1-2 minutes)
+- Show the login page and explain how user roles work (admin/standard). Mention that the system has role-based access (e.g., only admins can access the admin dashboard).
+- Log in as an admin (or demo user).
+
+C) Admin Dashboard Overview (3-4 minutes)
+- Point out the navigation/sidebar (if applicable) and the top stats.
+- Explain the “Stat Grid” cards (users, production batches, sales orders, invoices, deliveries, revenue, low stock alerts).
+- Highlight quick actions: creating a new production batch, new sales order, creating invoices, managing users, viewing inventory, procurement.
+- Mention the “Low Stock Alerts” table and how it helps to proactively manage inventory.
+- Mention the “Near Expiry Finished Goods” section and how it supports expiry tracking.
+
+D) Core Modules Walkthrough (10-12 minutes)
+(Use the sidebar nav to jump between modules; show the end-to-end flow.)
+
+1. Procurement / Raw Materials
+- Go to Procurement module (`procurement.php` or `procurement_dashboard.php`).
+- Show how to create a purchase order or add a supplier.
+- Mention how raw materials are added and tracked.
+- Explain any receiving/inspection or QC flows in place (if applicable).
+
+2. Inventory Management
+- Go to Inventory Summary (`inventory_summary.php`).
+- Show raw materials and finished goods inventory.
+- Highlight how stock levels are calculated, and how low stock alerts work.
+- Show the inventory search/filter (if present) and how to adjust quantities or view movement.
+
+3. Production / Finished Goods
+- Open the Production module (`production_record.php`).
+- Demonstrate creating a production batch: selecting recipe/items, specifying quantities, and executing production.
+- Point out how it affects inventory (consumes raw materials, creates finished goods).
+
+4. Sales / Orders
+- Go to Sales Orders (`sales.php`).
+- Create a new sales order, choose a customer, add products.
+- Show how the order appears in the recent orders table on the dashboard.
+- Explain statuses (confirmed, dispatched, delivered) and how they change.
+
+5. Accounting / Invoicing
+- Navigate to Accounting (`accounting.php`).
+- Show how invoices are created from sales orders (if that’s the flow) or created independently.
+- Show paid vs unpaid invoices, and how the system sums revenue.
+
+6. Deliveries / Logistics (if present)
+- Show delivery assignment (likely via `delivery_assignments` table or a page).
+- Demonstrate marking a delivery as dispatched / delivered.
+- Show proof-of-delivery feature (upload/view image).
+
+E) Reporting & Alerts (2-3 minutes)
+- Walk through any Reports section (if available) or highlight how the dashboard gives a summary.
+- Highlight low stock and near expiry alerts again, explaining why they are important.
+
+F) Wrap-up & Q/A (1-2 minutes)
+- Summarize key strengths: end-to-end process, single database, quick actions, alerts.
+- Mention next improvements (e.g., better UX, analytics, mobile-friendly, audit logs).
+- Open the floor to questions.
+
+3) TIPS FOR A SMOOTH PRESENTATION
+- Use a stable browser window, hide unrelated tabs.
+- Keep the system responsive: if some page is slow, explain why and skip to a quicker page.
+- If you hit a bug, be transparent and pivot to another feature.
+- Keep the narrative flowing: talk about the problem (manual tracking, missing visibility) and how LORINIMS solves it.
+
+4) QUICK REFERENCE: Common URLs (for fast navigation)
+- Login: /lorinims/login.php
+- Admin Dashboard: /lorinims/admin_dashboard.php
+- Sales: /lorinims/sales.php
+- Accounting: /lorinims/accounting.php
+- Procurement: /lorinims/procurement.php
+- Inventory Summary: /lorinims/inventory_summary.php
+- Production: /lorinims/production_record.php
+
+---
+
+5) DEEP DIVE: Inventory + Expiry Tracking (Focused Module)
+
+Goal: If you want to emphasize inventory and expiry tracking, spend 5–7 minutes on this flow showing how the system helps prevent stockouts and waste.
+
+A) Set the scene (1 minute)
+- Explain the common pain points: missing materials, untracked stock, and unexpected expiration leading to waste.
+- Say: “Here’s how LORINIMS gives a live view of what’s on hand and what needs attention.”
+
+B) Inventory Summary (2 minutes)
+- Navigate to **Inventory Summary**.
+- Point out the key sections (raw materials vs finished goods, on-hand vs committed, and current valuation if shown).
+- Use a real row to highlight: current stock, minimum threshold, and location.
+- Say: “These levels are used to generate automated low stock alerts, so the team can reorder before it becomes a problem.”
+- Show the low-stock section or alert list (if available) and explain the difference between “Low Stock” vs “Out of Stock”.
+- If you have a stock threshold example, point out how it would trigger a task for procurement.
+
+C) Expiry Tracking (2 minutes)
+- Navigate to the “Near Expiry Finished Goods” section (either on the dashboard or a dedicated expiry report).
+- Explain why expiry tracking is critical for food products: compliance, quality, and cost control.
+- Use an example row: point out the expiry date, the remaining quantity, and how it ties back to the batch / recipe.
+- Mention: “In a production environment, this helps teams rotate stock (FIFO/LIFO) and plan promotions or transfers before loss occurs.”
+
+D) Quick “What You Can Do Next” Hooks (1 minute)
+- Mention how to act on these signals:
+  - **Create a procurement order** for low stock materials.
+  - **Adjust production plans** to use nearing-expiry goods first.
+  - **Run a report** (if available in your system) to review expiry risk weekly.
+
+---
+
+6) DEEP DIVE: Accounting Workflow (Focused Module)
+
+Goal: If you want to emphasize financial tracking, spend 5–7 minutes showing how orders turn into invoices and revenue.
+
+A) Set the scene (1 minute)
+- Explain the common pain points: missing invoices, unpaid orders, and manual reconciliation.
+- Say: “LORINIMS tracks the full sales-to-cash cycle, so finance has a clear picture and can follow up on open invoices.”
+
+B) Sales Order → Invoice Flow (3 minutes)
+- Navigate to **Sales Orders** (`sales.php`) and find a recent order.
+- Show how an order includes customer details, products, quantities, and total.
+- If your system allows generating invoices directly from an order, demonstrate that (“Create Invoice” button or similar).
+- If invoices are separate, show how you can create one and link it to the order.
+- Explain statuses: Draft / Confirmed / Paid (or whatever your system uses) and how they affect revenue.
+
+C) Payments & Revenue Reporting (2 minutes)
+- Go to **Accounting** (`accounting.php`) and show the invoice list.
+- Filter (or point out) unpaid vs paid invoices.
+- Select an invoice and show how to mark it paid (or record payment), and how that updates the dashboard revenue total.
+- Mention any support for partial payments, credit terms, or payment references (if present).
+
+D) Wrap the Accounting Story (1 minute)
+- Explain how this workflow provides clear audit trails: who created the invoice, when it was paid, and what order it came from.
+- Point out that this helps finance close books faster and reduces discrepancy with bank statements.
+
+---
+
+7) SPEAKER NOTES (Concise Script)
+
+Use this as a quick “cheat sheet” while presenting.
+
+A) Opening (30 seconds)
+- “Hi everyone, I’m [your name]. Today I’ll show you LORINIMS: a lightweight integrated management system for food batch production.
+- It covers procurement, inventory, production, sales, accounting, and reporting — all connected in one place.”
+
+B) Dashboard (1 minute)
+- “This is the admin dashboard. Here’s the real-time snapshot: users, batches, orders, invoices, deliveries, revenue, and automatic alerts.”
+- Click a few quick actions: “New Sales Order”, “Create Invoice”, “View Inventory”.
+
+C) Inventory Focus (2 minutes)
+- “Inventory is the heartbeat. The system shows on-hand quantities, location, and auto alerts when we’re low.”
+- Show low stock list and near-expiry list.
+
+D) Order-to-Cash (2 minutes)
+- “A sales order becomes an invoice, which becomes revenue when paid. Here’s the order list, and here’s the accounting list.”
+- Show invoice status and payment recording.
+
+E) Close (30 seconds)
+- “That’s the core flow: get materials, make goods, sell them, and get paid — with visibility at every step.”
+- “Happy to answer questions or show a specific workflow in more depth.”
+
+---
+
+Good luck on Sunday! Keep the demo focused, keep it moving, and use the dashboards and tables to tell the story of how this system keeps operations running smoothly. 
